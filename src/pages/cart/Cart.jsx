@@ -32,6 +32,8 @@ export default function Cart() {
   };
 
   const totalPrice = cart.cartItems ? cart.cartItems.reduce((sum, item) => sum + item.price, 0) : 0;
+  const totalPositions = cart.cartItems ? cart.cartItems.reduce((sum, item) => sum + item.quantity, 0) : 0;
+  const totalItems = cart.cartItems ? cart.cartItems.length : 0;
 
   return (
     <>
@@ -64,13 +66,13 @@ export default function Cart() {
                 <div className="total-price"> 
                   <div className="total-panel left"> 
                     <p className="p-field">
-                      <span>Знижка:</span>
-                      <span> 000 </span>
+                      <span>Позицій: </span>
+                      <span>{totalItems}</span>
                     </p> 
                     <p className="p-field">
-                      <span>Доставка: </span>
-                      <span> 000 </span>
-                    </p> 
+                      <span>Кількість товарів:</span>
+                      <span>{totalPositions}</span>
+                    </p>  
                   </div> 
                   <div className="total-panel right"> 
                     <p className="p-field">
