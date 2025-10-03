@@ -18,7 +18,7 @@ export default  function Home() {
         </div>
         <div className="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4">
             {groups.map(group => <div key={group.id} className="col">
-                <Link className="nav-link h-100" to="Category" asp-route-id={group.slug}>
+                <Link className="nav-link h-100" to={"Category/" + group.slug}>
                     <div className="card h-100">
                         <img src={backUrl + "/STORAGE/Item/" + group.imageUrl} className="card-img-top" alt="..." />
                         <div className="card-body">

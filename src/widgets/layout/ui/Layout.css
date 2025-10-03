@@ -8,3 +8,20 @@
 main{
     flex: 1;
 }
+.nav-cart-btn{
+    position: relative;
+}
+.nav-cart-total{
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background-color: rgb(0, 158, 92);
+    color: white;
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

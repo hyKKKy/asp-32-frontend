@@ -6,9 +6,27 @@ import Layout from '../widgets/layout/Layout';
 import Home from '../pages/home/Home';
 import AppContext from '../features/context/AppContext';
 import Base64 from '../shared/base64/Base64';
+import Product from '../pages/product/Product';
+import Cart from '../pages/cart/Cart';
+
+const initCartState = {
+    cartItems: []
+};
+
 function App() {
   const [token, setToken] = useState(null);
   const [user, setUser] = useState(null);
+  const [cart, setCart] = useState({});
+
+  const updateCart = () => {
+    if(token){
+            request("/api/cart")
+        .then(setCart)
+        }
+        else{
+            setCart(initCartState);
+        }
+  };
 
   useEffect(() => {
     if(token){
@@ -17,6 +35,7 @@ function App() {
     else{
       setUser(null);
     }
+    updateCart();
   }, [token]);
 
   const backUrl = "https://localhost:7076";
@@ -36,7 +55,7 @@ function App() {
           conf.headers = {};
         }
         if(typeof conf.headers['Authorization'] == 'undefined'){
-          conf.headers['Authorization'] = 'Bearer ' + token + '.';
+          conf.headers['Authorization'] = 'Bearer ' + token;
         }
       }
     }
@@ -54,12 +73,14 @@ function App() {
 
 
 
-  return <AppContext.Provider value = {{request, backUrl, user, setToken}}>
+  return <AppContext.Provider value = {{cart, updateCart, request, backUrl, user, setToken}}>
     <BrowserRouter>
       <Routes>
           <Route path="/" element={<Layout />} >
             <Route index element = {<Home />} />
-            <Route path='category' element = {<Category />} />
+            <Route path="cart" element={<Cart />}></Route>
+            <Route path='category/:slug' element = {<Category />} />
+            <Route path="product/:slug" element={<Product />}></Route>
           </Route>
       </Routes>
     </BrowserRouter>

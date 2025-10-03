@@ -1,4 +1,4 @@
-import { Outlet } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 import './ui/Layout.css';
 import AppContext from "../../features/context/AppContext";
 import { useContext, useRef } from "react";
@@ -7,7 +7,7 @@ import Base64 from "../../shared/base64/Base64";
 // Buffer.from(`${login}:${password}`, 'utf-8').toString('base64');
 
 export default function Layout() {
-    const {request, setToken, user} = useContext(AppContext);
+    const {cart, request, setToken, user} = useContext(AppContext);
     const closeModalRef = useRef()
 
 
@@ -46,7 +46,7 @@ export default function Layout() {
                 <div className="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul className="navbar-nav flex-grow-1">
                         <li className="nav-item">
-                            <a className="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <Link className="nav-link text-dark" to="/">Home</Link>
                         </li>
                         <li className="nav-item">
                             <a className="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
@@ -60,12 +60,16 @@ export default function Layout() {
                                     <i className="bi bi-box-arrow-in-right"></i>
                                 </button>
                             </> : <>
+                                <Link to="/cart" className="btn btn-outline-success me-2 nav-cart-btn" title="Cart">
+                                    <i className="bi bi-cart"></i>
+                                    <span className="nav-cart-total">{cart.cartItems.length}</span>
+                                </Link>
                                 <button onClick={() => setToken(null)} 
                                 type="button" 
                                 className="btn btn-outline-warning"
                                 title={user.name + ' ' + user.email}
                                 >
-                                    <i class="bi bi-box-arrow-right"></i>
+                                    <i className="bi bi-box-arrow-right"></i>
                                 </button>
                             </>}  
                         </div>       
